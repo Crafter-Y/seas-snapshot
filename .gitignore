@@ -1,0 +1,4 @@
+imgen/
+node_modules/
+.env
+output.pdf

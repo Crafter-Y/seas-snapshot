@@ -2,6 +2,8 @@ const puppeteer = require("puppeteer");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
+const HEADLESS = true;
+
 const HEIGHT = 842;
 const WIDTH = 596;
 
@@ -81,7 +83,7 @@ class Screenshotter {
   async #_init_puppeteer() {
     this.#_browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      //headless: false,
+      headless: HEADLESS,
     });
     this.#_page = await this.#_browser.newPage();
     this.#_page.on("console", (message) =>
@@ -130,7 +132,9 @@ class Screenshotter {
 
   async shutdown() {
     this.#_end_pdf();
-    await this.#_end_puppeteer();
+    if (HEADLESS) {
+      await this.#_end_puppeteer();
+    }
   }
 
   async login() {
@@ -138,6 +142,26 @@ class Screenshotter {
     await this.#_page.type("input[type=password]", process.env.PASSWORD);
 
     await this.#_page.click('div[tabindex="0"]');
+  }
+
+  async press(query) {
+    await this.#_page.click(query);
+  }
+
+  async pressX(query) {
+    await this.#_page.locator(query).click();
+  }
+
+  async resetSize() {
+    await this.#_page.setViewport(TV_FHD);
+  }
+
+  async back() {
+    await this.#_page.goBack();
+  }
+
+  async clickCoords(x, y) {
+    await this.#_page.mouse.click(x, y);
   }
 
   /** @param {string} slug */

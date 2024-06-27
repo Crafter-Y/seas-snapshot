@@ -110,6 +110,20 @@ class Screenshotter {
     this.#_pdf
       .fontSize(14)
       .text("Dieses Dokument wurde automatisch generiert!");
+    this.#_pdf
+      .fontSize(14)
+      .text("Diese Designs werden auf folgenden Plattformen verwendet:");
+    this.#_pdf.fontSize(12).text("- Android");
+    this.#_pdf.text("- iOS");
+    this.#_pdf.text("- Web");
+
+    this.#_pdf
+      .fontSize(11)
+      .text(
+        `© (copyright) Helmut Haase 2022 - ${new Date().getFullYear()} • SEAS Kirchengemeinde UG (haftungsbeschränkt)`,
+        BORDER,
+        HEIGHT - 150
+      );
   }
 
   async #_end_puppeteer() {
@@ -193,6 +207,14 @@ class Screenshotter {
       }
     );
 
+    this.#_pdf
+      .fontSize(11)
+      .text(
+        `© (copyright) Helmut Haase 2022 - ${new Date().getFullYear()} • SEAS Kirchengemeinde UG (haftungsbeschränkt)`,
+        BORDER,
+        HEIGHT - 150
+      );
+
     this.#_pdf.addPage();
 
     // TV FHD
@@ -215,15 +237,18 @@ class Screenshotter {
     await this.#_page.screenshot({
       path: filename.replace("%SIZE%", "TV_HD"),
     });
-    this.#_pdf.text(slug + " - TV_HD", BORDER, HEIGHT / 2);
-    this.#_pdf.image(
-      filename.replace("%SIZE%", "TV_HD"),
-      BORDER,
-      HEIGHT / 2 + 12,
-      {
-        width: WIDTH - 2 * BORDER,
-      }
-    );
+    this.#_pdf.text(slug + " - TV_HD", BORDER, HEIGHT / 2 - 12);
+    this.#_pdf.image(filename.replace("%SIZE%", "TV_HD"), BORDER, HEIGHT / 2, {
+      width: WIDTH - 2 * BORDER,
+    });
+
+    this.#_pdf
+      .fontSize(11)
+      .text(
+        `© (copyright) Helmut Haase 2022 - ${new Date().getFullYear()} • SEAS Kirchengemeinde UG (haftungsbeschränkt)`,
+        BORDER,
+        HEIGHT - 135
+      );
 
     this.#_pdf.addPage();
 
@@ -320,6 +345,14 @@ class Screenshotter {
         height: HEIGHT / 3 - BORDER,
       }
     );
+
+    this.#_pdf
+      .fontSize(11)
+      .text(
+        `© (copyright) Helmut Haase 2022 - ${new Date().getFullYear()} • SEAS Kirchengemeinde UG (haftungsbeschränkt)`,
+        BORDER,
+        HEIGHT - 150
+      );
   }
 }
 

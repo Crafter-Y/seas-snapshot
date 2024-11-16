@@ -27,18 +27,22 @@ const main = async () => {
   await sc.press('::-p-xpath(//*[text()="Plan 5"])');
   await sc.press('::-p-xpath(//*[text()="-"])');
   await sc.capture("boardrow");
-  await sc.back();
+  await sc.clickXpath(
+    "/html/body/div[4]/div/div[2]/div/div/div/div/div/div[1]/div[3]/div"
+  ); // pres x icon on top
 
   await sc.resetSize();
   await sc.press(
-    '::-p-xpath(//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div[2]/button[1]/div/div/div/img)'
+    '::-p-xpath(//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div[2]/button[1]/div/div)'
   ); // calendar icon
   await sc.capture("calendar");
-  await sc.back();
+  await sc.clickXpath(
+    "/html/body/div[8]/div/div[2]/div/div/div/div/div/div[1]/div[3]/div"
+  ); // close icon
 
   await sc.resetSize();
   await sc.press(
-    '::-p-xpath(//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div[2]/button[2]/div/div/div/img)'
+    '::-p-xpath(//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div[2]/button[2]/div/div)'
   ); // print icon
   await sc.capture("print-1");
 
@@ -50,7 +54,9 @@ const main = async () => {
   await sc.press('::-p-xpath(//*[text()="Dense 3"])');
   await sc.press('::-p-xpath(//*[text()="Weiter"])');
   await sc.capture("print-3");
-  await sc.back();
+  await sc.clickXpath(
+    "/html/body/div[11]/div/div[2]/div/div/div/div/div/div[1]/div[3]/div"
+  );
 
   await sc.resetSize();
   await sc.press('::-p-xpath(//*[text()="Passwort ändern"])');
@@ -58,13 +64,13 @@ const main = async () => {
   await sc.back();
 
   await sc.press(
-    '::-p-xpath(//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div/div/div[1]/div/button/div/div/div/img)'
+    '::-p-xpath(//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div/div/div[1]/div/button/div/div)'
   ); // settings icon
   await sc.capture("mobile-context");
   await sc.clickCoords(0, 0);
 
   await sc.resetSize();
-  await sc.press('::-p-xpath(//*[text()="Einstellungen"])');
+  await sc.clickXpath('//*[text()="Einstellungen"]');
   await sc.capture("settings");
 
   await sc.resetSize();

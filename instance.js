@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
-const HEADLESS = true;
+const HEADLESS = false;
 
 const HEIGHT = 842;
 const WIDTH = 596;
@@ -160,6 +160,20 @@ class Screenshotter {
 
   async press(query) {
     await this.#_page.click(query);
+  }
+
+  async clickXpath(path) {
+    await this.#_page.evaluate(async (path) => {
+      document
+        .evaluate(
+          path,
+          document,
+          null,
+          XPathResult.FIRST_ORDERED_NODE_TYPE,
+          null
+        )
+        .singleNodeValue.click();
+    }, path);
   }
 
   async pressX(query) {
